@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  mongodb:
+    image: mongo:jammy
+    env_file: .env
+    container_name: mongodb
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    volumes:
+      - data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASS}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGODB_USER}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGODB_PASS}
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+volumes:
+  data: {}
+
+networks:
+  default:
+    name: mongodb_network

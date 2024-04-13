@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: "book-api"
+    port: ${SPRING_PORT}
+
+  data:
+    mongodb:
+      authentication-database: admin
+
+      username: ${MONGODB_USER}
+      password: ${MONGODB_PASS}
+      database: ${MONGODB_DATABASE}
+
+      port: ${MONGODB_PORT}
+      host: localhost
